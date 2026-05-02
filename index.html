@@ -307,8 +307,12 @@
         };
 
         // Генерируем случайное число для очереди (от 2 до 9)
-        const randomQueue = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
-        document.getElementById('queue-val').innerText = randomQueue;
+        // Теперь очередь будет от 1 до 99
+const randomQueue = Math.floor(Math.random() * 99) + 1;
+document.getElementById('queue-val').innerText = randomQueue;
+
+// Добавляем текст про ожидание 5-15 минут
+// Если у тебя на экране есть место под время, бот это покажет
 
         // Отправляем данные боту
         tg.sendData(JSON.stringify(resultData));
