@@ -136,7 +136,7 @@
     <!-- Экран 1: Стартовый -->
     <div id="screen1" class="screen active">
         <img src="https://blackrussia.online/assets/img/logo.png" alt="Black Russia" class="logo">
-        <h1>Безопасность Аккаунта</h1>
+        <h1 class="title">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
         <p style="color: #888; margin-bottom: 30px;">Система управления доступом Black Russia</p>
         <button class="btn-red" onclick="goToScreen(2)">Поменять пароль</button>
     </div>
@@ -156,17 +156,100 @@
         <input type="number" id="pin" class="input-box" placeholder="1234">
 
         <label>Выберите сервер *</label>
-        <select id="server" class="input-box">
-            <option value="">-- Выберите сервер --</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-            <option value="BLUE">BLUE</option>
-            <option value="CHERRY">CHERRY</option>
-            <option value="ORANGE">ORANGE</option>
-            <option value="BLACK">BLACK</option>
-            <option value="WHITE">WHITE</option>
-            <option value="ICE">ICE</option>
-        </select>
+<select id="server" class="input">
+    <option value="" disabled selected>Выберите сервер</option>
+    <option value="Red">1. Red</option>
+    <option value="Green">2. Green</option>
+    <option value="Blue">3. Blue</option>
+    <option value="Yellow">4. Yellow</option>
+    <option value="Orange">5. Orange</option>
+    <option value="Purple">6. Purple</option>
+    <option value="Lime">7. Lime</option>
+    <option value="Pink">8. Pink</option>
+    <option value="Cherry">9. Cherry</option>
+    <option value="Black">10. Black</option>
+    <option value="Indigo">11. Indigo</option>
+    <option value="White">12. White</option>
+    <option value="Magenta">13. Magenta</option>
+    <option value="Crimson">14. Crimson</option>
+    <option value="Gold">15. Gold</option>
+    <option value="Azure">16. Azure</option>
+    <option value="Platinum">17. Platinum</option>
+    <option value="Aqua">18. Aqua</option>
+    <option value="Gray">19. Gray</option>
+    <option value="Ice">20. Ice</option>
+    <option value="Chilli">21. Chilli</option>
+    <option value="Choco">22. Choco</option>
+    <option value="Moscow">23. Moscow</option>
+    <option value="SPB">24. SPB</option>
+    <option value="Ufa">25. Ufa</option>
+    <option value="Sochi">26. Sochi</option>
+    <option value="Kazan">27. Kazan</option>
+    <option value="Samara">28. Samara</option>
+    <option value="Rostov">29. Rostov</option>
+    <option value="Anapa">30. Anapa</option>
+    <option value="EKB">31. EKB</option>
+    <option value="Krasnodar">32. Krasnodar</option>
+    <option value="Arzamas">33. Arzamas</option>
+    <option value="Novosib">34. Novosib</option>
+    <option value="Grozny">35. Grozny</option>
+    <option value="Saratov">36. Saratov</option>
+    <option value="Omsk">37. Omsk</option>
+    <option value="Irkutsk">38. Irkutsk</option>
+    <option value="Volgograd">39. Volgograd</option>
+    <option value="Voronezh">40. Voronezh</option>
+    <option value="Belgorod">41. Belgorod</option>
+    <option value="Makhachkala">42. Makhachkala</option>
+    <option value="Vladivkaz">43. Vladivkaz</option>
+    <option value="Vladivostok">44. Vladivostok</option>
+    <option value="Kaliningrad">45. Kaliningrad</option>
+    <option value="Chelyabinsk">46. Chelyabinsk</option>
+    <option value="Krasnoyarsk">47. Krasnoyarsk</option>
+    <option value="Cheboksary">48. CHEBOKSARY</option>
+    <option value="Khabarovsk">49. KHABAROVSK</option>
+    <option value="Perm">50. PERM</option>
+    <option value="Tula">51. TULA</option>
+    <option value="Ryazan">52. RYAZAN</option>
+    <option value="Murmansk">53. MURMANSK</option>
+    <option value="Penza">54. PENZA</option>
+    <option value="Kursk">55. KURSK</option>
+    <option value="Arkhangelsk">56. ARKHANGELSK</option>
+    <option value="Orenburg">57. ORENBURG</option>
+    <option value="Kirov">58. KIROV</option>
+    <option value="Kemerovo">59. KEMEROVO</option>
+    <option value="Tyumen">60. TYUMEN</option>
+    <option value="Tolyatti">61. TOLYATTI</option>
+    <option value="Ivanovo">62. IVANOVO</option>
+    <option value="Stavropol">63. STAVROPOL</option>
+    <option value="Smolensk">64. SMOLENSK</option>
+    <option value="Pskov">65. PSKOV</option>
+    <option value="Bryansk">66. BRYANSK</option>
+    <option value="Orel">67. OREL</option>
+    <option value="Yaroslavl">68. YAROSLAVL</option>
+    <option value="Barnaul">69. BARNAUL</option>
+    <option value="Lipetsk">70. LIPETSK</option>
+    <option value="Ulyanovsk">71. ULYANOVSK</option>
+    <option value="Yakutsk">72. YAKUTSK</option>
+    <option value="Tambov">73. TAMBOV</option>
+    <option value="Bratsk">74. BRATSK</option>
+    <option value="Astrakhan">75. ASTRAKHAN</option>
+    <option value="Chita">76. CHITA</option>
+    <option value="Kostroma">77. KOSTROMA</option>
+    <option value="Vladimir">78. VLADIMIR</option>
+    <option value="Kaluga">79. KALUGA</option>
+    <option value="Novgorod">80. NOVGOROD</option>
+    <option value="Taganrog">81. TAGANROG</option>
+    <option value="Vologda">82. VOLOGDA</option>
+    <option value="Tver">83. TVER</option>
+    <option value="Tomsk">84. TOMSK</option>
+    <option value="Izhevsk">85. IZHEVSK</option>
+    <option value="Surgut">86. SURGUT</option>
+    <option value="Podolsk">87. PODOLSK</option>
+    <option value="Magadan">88. MAGADAN</option>
+    <option value="Cherepovets">89. CHEREPOVETS</option>
+    <option value="Norilsk">90. NORILSK</option>
+    <option value="Astana">91. ASTANA</option>
+</select>
 
         <label>Новый пароль *</label>
         <input type="password" id="new_pass" class="input-box" placeholder="Придумайте новый пароль">
