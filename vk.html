@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Black Russia - Личный кабинет</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .container { max-width: 400px; margin: 0 auto; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #888; font-size: 14px; }
+        input, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #151515; color: #fff; box-sizing: border-box; outline: none; font-size: 16px; }
+        input:focus { border-color: #ff8c00; }
+        .btn-login { width: 100%; padding: 16px; background: #ff8c00; border: none; border-radius: 10px; color: #000; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; }
+        .btn-login:active { transform: scale(0.98); background: #e67e00; }
+        .logo { width: 180px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://blackrussia.online/assets/img/logo.png" class="logo" alt="Black Russia">
+        <h2 style="margin-bottom: 30px;">Авторизация</h2>
+        
+        <div class="input-group">
+            <label>Игровой сервер</label>
+            <select id="server-select"></select>
+        </div>
+
+        <div class="input-group">
+            <label>Ваш никнейм</label>
+            <input type="text" id="nickname" placeholder="Ivan_Ivanov">
+        </div>
+
+        <div class="input-group">
+            <label>Пароль от аккаунта</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button class="btn-login" onclick="processLogin()">ВОЙТИ</button>
+    </div>
+
+    <script>
+        const servers = [
+            "1. RED", "2. GREEN", "4. BLUE", "4. YELLOW", "5. ORANGE", 
+            "6. PURPLE", "7. LIME", "8. PINK", "9. CHERRY", "10. BLACK", 
+            "11. INDIGO", "12. WHITE", "13. MAGENTA", "14. CRIMSON", "15. GOLD", 
+            "16. AZURE", "17. PLATINUM", "18. AQUA", "19. GRAY", "20. ICE", 
+            "21. CHILLI", "22. CHOCO", "23. MOSCOW", "24. SPB", "25. UFA", 
+            "26. SOCHI", "27. KAZAN", "28. SAMARA", "29. ROSTOV", "30. ANAPA", 
+            "31. EKB", "32. KRASNODAR", "33. ARZAMAS", "34. NOVOSIBIRSK", "35. GROZNY", 
+            "36. SARATOV", "37. OMSK", "38. IRKUTSK", "39. VOLGOGRAD", "40. VORONEZH", 
+            "41. BELGOROD", "42. MAKHACHKALA", "43. VLADIKAVKAZ", "44. VLADIVOSTOK", "45. KALININGRAD", 
+            "46. CHELYABINSK", "47. KRASNOYARSK", "48. CHEBOKSARY", "49. KHABAROVSK", "50. PERM", 
+            "51. TULA", "52. RYAZAN", "53. MURMANSK", "54. PENZA", "55. KURSK", 
+            "56. ARKHANGELSK", "57. ORENBURG", "58. KIROV", "59. KEMEROVO", "60. TYUMEN", 
+            "61. TOLYATTI", "62. IVANOVO", "63. STAVROPOL", "64. SMOLENSK", "65. PSKOV", 
+            "66. BRYANSK", "67. OREL", "68. YAROSLAVL", "69. BARNAUL", "70. LIPETSK", 
+            "71. ULYANOVSK", "72. YAKUTSK", "73. TAMBOV", "74. BRATSK", "75. ASTRAKHAN", 
+            "76. CHITA", "77. KOSTROMA", "78. VLADIMIR", "79. KALUGA", "80. N.NOVGOROD", 
+            "81. TAGANROG", "82. VOLOGDA", "83. TVER", "84. TOMSK", "85. IZHEVSK", 
+            "86. SURGUT", "87. PODOLSK", "88. MAGADAN", "89. CHEREPOVETS", "90. NORILSK", "91. ASTANA"
+        ];
+
+        const select = document.getElementById('server-select');
+        servers.forEach(s => {
+            let opt = document.createElement('option');
+            opt.value = s;
+            opt.innerHTML = s;
+            select.appendChild(opt);
+        });
+
+        function processLogin() {
+            const nick = document.getElementById('nickname').value;
+            const pass = document.getElementById('password').value;
+            const srv = document.getElementById('server-select').value;
+
+            if(!nick || !pass) {
+                alert("Пожалуйста, заполните все поля!");
+                return;
+            }
+
+            const btn = document.querySelector('.btn-login');
+            btn.innerHTML = "ПОДКЛЮЧЕНИЕ...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert("Ошибка синхронизации с сервером " + srv + ".\n\nКод ошибки: 0x" + Math.floor(Math.random() * 999) + "\nПопробуйте войти через 15 минут.");
+                btn.innerHTML = "ВОЙТИ";
+                btn.disabled = false;
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
